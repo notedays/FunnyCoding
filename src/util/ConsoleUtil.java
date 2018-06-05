@@ -35,11 +35,12 @@ public class ConsoleUtil {
 	}
 
 	/**
-	 *  # 콘솔창에서 숫자를 입력 받을 수 있는 메소드
+	 *  # 콘솔창에서 숫자를 입력 받을 수 있는 메소드<br>
+	 *  - 입력 범위 : start <= 입력 받은 숫자 < end
 	 * @param showText : 입력받기 전 보여줄 안내 문구 
 	 * @return
 	 */
-	public int inputNo(String showText) {
+	public int inputNo(String showText, int start, int end) {
 		int input = -1;
 		do {
 			try {
@@ -48,7 +49,7 @@ public class ConsoleUtil {
 			} catch (Exception e) {
 			} 
 			scan.nextLine();
-		} while (input == -1);
+		} while (input == -1 || input < start || input >= end);
 		return input;
 	}
 
