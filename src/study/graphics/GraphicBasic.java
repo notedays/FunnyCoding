@@ -13,7 +13,7 @@ public abstract class GraphicBasic extends JFrame implements Runnable {
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 800;
 
-	Canvas canvas = new Canvas();
+	public Canvas canvas = new Canvas();
 
 	public GraphicBasic() {
 		// # Setting Canvas
