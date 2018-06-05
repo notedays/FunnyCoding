@@ -35,10 +35,10 @@ public class MusicExample {
 			case PLAY: // @ 음악 재생
 				play();
 				break;
-			case STOP:
+			case STOP: // @ 음악 정지
 				stop();
 				break;
-			case EXIT:
+			case EXIT: // @ 프로그램 종료
 				exit();
 				break;
 			}
