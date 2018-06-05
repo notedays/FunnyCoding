@@ -44,7 +44,7 @@ public class MusicExample {
 					break;
 				}
 			} catch (Exception e) {
-				System.out.println("[Error] : "+e.getMessage());
+				System.out.println("[Error] : " + e.getMessage());
 			}
 			System.out.println();
 		}
@@ -73,6 +73,11 @@ public class MusicExample {
 	}
 
 	private void stop() {
+		// # 재생중인 목록이 없다면 return!
+		if (musicList.isEmpty()) {
+			return;
+		}
+
 		// # 현재 재생중인 목록 출력
 		System.out.println();
 		System.out.println("## 재생중인 목록 ##");
