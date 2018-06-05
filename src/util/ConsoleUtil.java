@@ -61,7 +61,4 @@ public class ConsoleUtil {
 		return text.equals("y");
 	}
 
-	public static void main(String[] args) {
-		System.out.println(ConsoleUtil.getInstance().inputYN("계속 할래?"));
-	}
 }
