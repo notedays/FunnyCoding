@@ -75,6 +75,7 @@ public class MusicExample {
 	private void stop() {
 		// # 재생중인 목록이 없다면 return!
 		if (musicList.isEmpty()) {
+			System.out.println("현재 재생중인 음악이 없습니다.");
 			return;
 		}
 
@@ -92,10 +93,13 @@ public class MusicExample {
 	}
 
 	private void exit() {
-		System.out.println("프로그램을 종료합니다....");
-		for (Music music : musicList) {
-			music.close();
+		boolean isYes = console.inputYN("정말 종료하시겠습니까?");
+		if (isYes) {
+			System.out.println("프로그램을 종료합니다....");
+			for (Music music : musicList) {
+				music.close();
+			}
+			System.exit(0);
 		}
-		System.exit(0);
 	}
 }
