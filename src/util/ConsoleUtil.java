@@ -16,7 +16,7 @@ public class ConsoleUtil {
 
 	// # Variable
 	private Scanner scan = new Scanner(System.in);
-	
+
 	/**
 	 * # 콘솔창에서 문자를 입력 받을 수 있는 메소드
 	 * @param showText : 입력받기 전 보여줄 안내 문구 
@@ -30,10 +30,10 @@ public class ConsoleUtil {
 				input = scan.nextLine();
 			} catch (Exception e) {
 			}
-		}while(input == null);
+		} while (input == null);
 		return input;
 	}
-	
+
 	/**
 	 *  # 콘솔창에서 숫자를 입력 받을 수 있는 메소드
 	 * @param showText : 입력받기 전 보여줄 안내 문구 
@@ -46,18 +46,17 @@ public class ConsoleUtil {
 				System.out.print(showText + " : ");
 				input = scan.nextInt();
 			} catch (Exception e) {
-			} finally{
-				scan.nextLine();
-			}
+			} 
+			scan.nextLine();
 		} while (input == -1);
 		return input;
 	}
-	
+
 	public boolean inputYN(String showText) {
 		String text = null;
 		do {
 			text = inputText(showText + " [y/n]").toLowerCase();
-		}while(!text.equals("y") && !text.equals("n"));
+		} while (!text.equals("y") && !text.equals("n"));
 		return text.equals("y");
 	}
 
