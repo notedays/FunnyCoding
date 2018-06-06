@@ -17,8 +17,14 @@ public class Music extends Thread implements AutoCloseable {
 
 	public Music(String name, boolean isLoop) {
 		this.isLoop = isLoop;
+		this.file = new File(path + name);
+	}
+
+	private void initialize() {
 		try {
-			file = new File(path + name);
+			if (player != null) {
+				player.close();
+			}
 			player = new Player(new BufferedInputStream(new FileInputStream(file)));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -26,7 +32,8 @@ public class Music extends Thread implements AutoCloseable {
 	}
 
 	/**
-	 * # 현재 플레이 시간을 가져오는 메소드 
+	 * # 현재 플레이 시간을 가져오는 메소드
+	 * 
 	 * @return
 	 */
 	public int getTime() {
@@ -48,6 +55,7 @@ public class Music extends Thread implements AutoCloseable {
 	public void run() {
 		try {
 			do {
+				initialize();
 				player.play();
 			} while (isLoop);
 		} catch (Exception e) {
@@ -73,5 +81,13 @@ public class Music extends Thread implements AutoCloseable {
 	public void setFile(File file) {
 		this.file = file;
 	}
-	
+
+	public boolean isLoop() {
+		return isLoop;
+	}
+
+	public void setLoop(boolean isLoop) {
+		this.isLoop = isLoop;
+	}
+
 }
