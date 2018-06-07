@@ -72,12 +72,12 @@ public class UpDownGame {
 
 	/**
 	 * # 범위 안의 랜덤한 번호를 생성하는 메소드<br>
-	 * - <strong>1 ~ range 범위</strong>의 숫자 생성
-	 * @param range
+	 * - <strong>min ~ max 범위</strong>의 숫자 생성
+	 * @param max
 	 * @return
 	 */
-	private int generateNum(int range, int min) {
-		return new Random().nextInt(range - min) + min;
+	private int generateNum(int max, int min) {
+		return new Random().nextInt(max - min + 1) + min;
 	}
 
 	/**
