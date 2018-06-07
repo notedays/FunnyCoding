@@ -2,6 +2,7 @@ package examples;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import util.ConsoleUtil;
@@ -73,6 +74,21 @@ public class MusicExample {
 	}
 
 	private void stop() {
+		// # 목록 띄워줄 StringBuilder
+		StringBuilder builder = new StringBuilder("\n## 재생중인 목록 ##");
+
+		// # 재생 상태에 따라 제거 및 리스트에 추가 처리
+		int no = 1;
+		Iterator<Music> iter = musicList.iterator();
+		while (iter.hasNext()) {
+			Music music = iter.next();
+			if (!music.isPlaying()) {
+				iter.remove();
+			} else {
+				builder.append("\n" + no++ + ". " + music.getFile().getName());
+			}
+		}
+
 		// # 재생중인 목록이 없다면 return!
 		if (musicList.isEmpty()) {
 			System.out.println("현재 재생중인 음악이 없습니다.");
@@ -80,12 +96,7 @@ public class MusicExample {
 		}
 
 		// # 현재 재생중인 목록 출력
-		System.out.println();
-		System.out.println("## 재생중인 목록 ##");
-		int no = 1;
-		for (Music music : musicList) {
-			System.out.println(no++ + ". " + music.getFile().getName());
-		}
+		System.out.println(builder.toString());
 
 		// # 음악 정지
 		int musicNo = console.inputNo("정지할 음악 번호 입력", 1, no);
