@@ -1,4 +1,4 @@
-package enjoy.movingSquare;
+package examples;
 
 import java.awt.Color;
 import java.awt.Graphics;

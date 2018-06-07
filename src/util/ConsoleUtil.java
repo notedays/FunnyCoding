@@ -35,22 +35,35 @@ public class ConsoleUtil {
 	}
 
 	/**
-	 *  # 콘솔창에서 숫자를 입력 받을 수 있는 메소드<br>
-	 *  - 입력 범위 : start <= 입력 받은 숫자 < end
+	 * # 콘솔창에서 범위안의 숫자를 입력 받을 수 있는 메소드<br>
+	 * - 입력 범위 : start <= 입력 받은 숫자 <= end
 	 * @param showText : 입력받기 전 보여줄 안내 문구 
 	 * @return
 	 */
 	public int inputNo(String showText, int start, int end) {
 		int input = -1;
 		do {
+			input = inputNo(showText);
+		} while (input == -1 || input < start || input > end);
+		return input;
+	}
+	
+	/**
+	 * # 콘솔창에서 숫자를 입력 받을 수 있는 메소드<br>
+	 * - 문자 등 잘못된 형식의 입력 시 다시 입력하도록 유도!
+	 * @param showText
+	 * @return
+	 */
+	public int inputNo(String showText) {
+		do {
 			try {
 				System.out.print(showText + " : ");
-				input = scan.nextInt();
-			} catch (Exception e) {
-			} 
-			scan.nextLine();
-		} while (input == -1 || input < start || input >= end);
-		return input;
+				int no = scan.nextInt();
+				scan.nextLine();
+				return no;
+			}catch(Exception e) {
+			}
+		} while (true);
 	}
 
 	public boolean inputYN(String showText) {

@@ -28,10 +28,10 @@ public class MusicExample {
 		System.out.println("*~ Simple Console MusicPlayer ~*");
 		while (true) {
 			try {
-				int no = 1;
+				int no = 0;
 				String[] actions = { "음악 재생", "음악 정지", "프로그램 종료" };
 				for (String action : actions) {
-					System.out.println(no++ + ". " + action);
+					System.out.println(++no + ". " + action);
 				}
 				switch (console.inputNo("실행할 번호 입력", 1, no)) {
 				case PLAY: // @ 음악 재생
@@ -55,10 +55,10 @@ public class MusicExample {
 		// # 음악 목록 출력해주기
 		System.out.println();
 		System.out.println("## 음악 목록 ##");
-		int no = 1;
+		int no = 0;
 		File[] musicArray = new File(Music.DEFAULT_PATH).listFiles();
 		for (File file : musicArray) {
-			System.out.println(no++ + ". " + file.getName());
+			System.out.println(++no + ". " + file.getName());
 		}
 
 		// # 재생할 음악 파일 번호 및 반복재생 여부 입력받기
@@ -78,14 +78,14 @@ public class MusicExample {
 		StringBuilder builder = new StringBuilder("\n## 재생중인 목록 ##");
 
 		// # 재생 상태에 따라 제거 및 리스트에 추가 처리
-		int no = 1;
+		int no = 0;
 		Iterator<Music> iter = musicList.iterator();
 		while (iter.hasNext()) {
 			Music music = iter.next();
 			if (!music.isPlaying()) {
 				iter.remove();
 			} else {
-				builder.append("\n" + no++ + ". " + music.getFile().getName());
+				builder.append("\n" + ++no + ". " + music.getFile().getName());
 			}
 		}
 
