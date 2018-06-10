@@ -1,11 +1,24 @@
 package study.basic;
 
 /**
- * # 메소드란? 실행할 여러 문장들의 묶음. - 메소드의 이름 형태 : 소문자 ()
+ * # 메소드란? 실행할 여러 문장들의 묶음. 
+ * - 메소드의 이름 형태 : 소문자 ()    ex) showIntroduce()
  * 
- * - 메소드 생성 접근제한자 리턴자료형 이름 ( 파라미터 ) { } ex) public int getPrice( String bread ){
- * switch(bread){ case "소보루" : return 1500; case "크림빵" : return 1300; case "피자빵"
- * : return 1900; default : return 1000; } }
+ * - 메소드 생성 
+ * 		접근제한자 리턴자료형 이름 ( 파라미터 ) { } 
+ * 	
+ * 	ex) public int getPrice( String bread ){
+ * 			switch(bread){ 
+ * 			case "소보루" : 
+ * 				return 1500; 
+ * 			case "크림빵" : 
+ * 				return 1300; 
+ * 			case "피자빵" : 
+ * 				return 1900; 
+ * 			default : 
+ * 				return 1000; 
+ * 			} 
+ * 		}
  *
  * --> 이때 리턴자료형 & 파라미터는 없을 수도 있음! ( 리턴자료형 x : void / 파라미터 x : 빈소괄호() )
  *
