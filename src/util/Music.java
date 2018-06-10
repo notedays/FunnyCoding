@@ -89,5 +89,8 @@ public class Music extends Thread implements AutoCloseable {
 	public void setLoop(boolean isLoop) {
 		this.isLoop = isLoop;
 	}
-
+	
+	public boolean isPlaying() {
+		return isLoop || player.getPosition() > 0;
+	}
 }
