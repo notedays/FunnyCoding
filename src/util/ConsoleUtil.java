@@ -59,9 +59,10 @@ public class ConsoleUtil {
 			try {
 				System.out.print(showText + " : ");
 				int no = scan.nextInt();
-				scan.nextLine();
 				return no;
 			}catch(Exception e) {
+			}finally {
+				scan.nextLine();
 			}
 		} while (true);
 	}
