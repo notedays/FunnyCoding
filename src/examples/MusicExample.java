@@ -56,7 +56,7 @@ public class MusicExample {
 		System.out.println();
 		System.out.println("## 음악 목록 ##");
 		int no = 0;
-		File[] musicArray = new File(Music.DEFAULT_PATH).listFiles();
+		File[] musicArray = new File(Music.DEFAULT_PATH+"/music/").listFiles();
 		for (File file : musicArray) {
 			System.out.println(++no + ". " + file.getName());
 		}
@@ -66,7 +66,7 @@ public class MusicExample {
 		boolean isLoop = console.inputYN("반복 재생 하시겠습니까?");
 
 		// # 음악 재생하기
-		Music music = new Music(musicArray[fileNo - 1].getName(), isLoop);
+		Music music = new Music("music/"+musicArray[fileNo - 1].getName(), isLoop);
 		music.start();
 
 		// # 재생중인 목록에 추가!
