@@ -24,7 +24,7 @@ import java.util.function.Predicate;
  */
 public class LambdaBasic3 {
 	public static void main(String[] args) {
-		new LambdaBasic2();
+		new LambdaBasic3();
 	}
 
 	// # Test를 위한 간단한 인터페이스
@@ -62,7 +62,6 @@ public class LambdaBasic3 {
 				if (beautyList.contains(t)) {
 					return name -> caller.call("미인 " + name);
 				}
-				;
 				return System.out::println;
 			}
 		};
