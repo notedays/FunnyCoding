@@ -2,7 +2,10 @@ package study.graphics;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,53 +13,57 @@ import javax.swing.JFrame;
 
 public abstract class GraphicBasic extends JFrame implements Runnable {
 
-	private static final int WIDTH = 800;
-	private static final int HEIGHT = 800;
+	private static final long serialVersionUID = 1L;
 
-	public Canvas canvas = new Canvas();
+	// # Toolkit - 윈도우 사이즈 구해서 위치 조정해줄 변수
+	Toolkit toolkit = getToolkit();
+
+	public Image preImage;
 
 	public GraphicBasic() {
+		Dimension d = toolkit.getScreenSize();
+		
 		// # Setting Canvas
-		canvas.setBackground(Color.BLACK);
-		add(canvas);
+		setBackground(Color.BLACK);
 
 		// # Setting JFrame
-		int x = WIDTH; // getWidth() / 2 - WIDTH / 2;
-		int y = HEIGHT / 4; // getHeight() / 2 - HEIGHT / 2;
-		setBounds(x, y, WIDTH, HEIGHT);
+		int x = (int) (d.getWidth() / 4);
+		int y = (int) (d.getHeight() / 7);
+		setBounds(x, y, x * 2, y * 5);
 		setVisible(true);
-		
+
 		// # Window Close
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				super.windowClosing(e);
-				System.exit(0);
-			}
-		});
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		new Thread(this).start();
 	}
-	
+
 	/**
 	 * 아래의 run() 메소드를 통해 draw 메소드를 계속 호출! 
 	 * @param canvas
 	 */
 	public abstract void draw(Graphics g);
-	
-	void clear() {
-		canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		
+		// @ 더블 버퍼링 - 임시 이미지에 먼저 그리기
+		preImage = createImage(getWidth(), getHeight());
+		draw(preImage.getGraphics());
+		
+		// @ 그려진 이미지를 다시 그려줌
+		g.drawImage(preImage, 0, 0, this);
 	}
-	
+
 	@Override
 	public void run() {
-		while (this.isShowing()) {
-			clear();
-			draw(canvas.getGraphics());
+		while (true) {
 			try {
+				repaint();
+
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}

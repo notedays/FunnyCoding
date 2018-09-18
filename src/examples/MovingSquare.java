@@ -12,9 +12,9 @@ import java.util.List;
 import study.graphics.GraphicBasic;
 
 public class MovingSquare extends GraphicBasic implements KeyListener {
-
+	
 	public static void main(String[] args) {
-		new MovingSquare().canvas.setBackground(Color.white);
+		new MovingSquare().setBackground(Color.white);
 	}
 
 	List<MyRect> squareList = new ArrayList<>();
@@ -29,9 +29,9 @@ public class MovingSquare extends GraphicBasic implements KeyListener {
 	Point defaultPoint;
 
 	public MovingSquare() {
-		this.canvas.addKeyListener(this);
+		this.addKeyListener(this);
 
-		int size = 70;
+		int size = 50;
 
 		int xCount = 3;
 		int yCount = 3;
@@ -86,7 +86,7 @@ public class MovingSquare extends GraphicBasic implements KeyListener {
 		for(MyRect rect : squareList) {
 			System.out.println(rect.color);
 			if(rect.getLocation().equals(myRect.getLocation())) {
-				this.canvas.setBackground(rect.color);
+				this.setBackground(rect.color);
 				break;
 			}
 		}

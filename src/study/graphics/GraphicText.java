@@ -12,9 +12,10 @@ public class GraphicText extends GraphicBasic{
 	
 	public void draw (Graphics g) {
 		isLeft = System.currentTimeMillis() % 2000 < 1000;
+		
 		g.setColor(Color.white);
 		g.setFont(new Font("Consolas", Font.ITALIC, 40));
-		g.drawString(getChangingText(), canvas.getWidth() / 4, canvas.getHeight() / 2);
+		g.drawString(getChangingText(), getWidth() / 4, getHeight() / 2);
 	}
 	
 	private String getChangingText() {
