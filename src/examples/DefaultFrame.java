@@ -11,6 +11,8 @@ public abstract class DefaultFrame extends JFrame implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
+	Image preImage;
+	
 	public DefaultFrame(int width, int height) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((screenSize.width - width) / 2, (screenSize.height - height) / 2, width, height);
@@ -21,9 +23,8 @@ public abstract class DefaultFrame extends JFrame implements Runnable {
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
 		// @ 더블 버퍼링 - 임시 이미지에 먼저 그리기
-		Image preImage = createImage(getWidth(), getHeight());
+		preImage = createImage(getWidth(), getHeight());
 		draw(preImage.getGraphics());
 
 		// @ 그려진 이미지를 다시 그려줌
@@ -37,8 +38,8 @@ public abstract class DefaultFrame extends JFrame implements Runnable {
 		while (true) {
 			try {
 				repaint();
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
+				Thread.sleep(30);
+			} catch (Exception e) {
 			}
 		}
 	}
