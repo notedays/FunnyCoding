@@ -1,4 +1,4 @@
-package examples;
+package practice.notedays.simple;
 
 import java.io.File;
 import java.util.ArrayList;

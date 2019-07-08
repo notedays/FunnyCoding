@@ -1,4 +1,4 @@
-package examples;
+package practice.notedays.simple;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

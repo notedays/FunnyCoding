@@ -1,13 +1,9 @@
-package examples.specialLetter;
+package practice.notedays.specialLetter;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.List;
 import java.util.Properties;
@@ -15,7 +11,7 @@ import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import examples.DefaultFrame;
+import practice.notedays.simple.DefaultFrame;
 import util.FileUtil;
 import util.Music;
 import util.TextUtil;
@@ -29,8 +25,8 @@ public class SpecialLetter extends DefaultFrame {
 	}
 
 	// # 설정 변수값
-	private static final int WIDTH = 333;
-	private static final int HEIGHT = 500;
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 1200;
 
 	private final int TIME_SPEED = 50;
 	private int textStartY = HEIGHT;
@@ -108,7 +104,7 @@ public class SpecialLetter extends DefaultFrame {
 		}
 		// @ 편지지 이미지 로딩 
 		ImageIcon bgImage = new ImageIcon(properties.getProperty("bg_image"));
-		g.drawImage(bgImage.getImage(), 0, 0, this);
+		g.drawImage(bgImage.getImage(), 0, 0, WIDTH, HEIGHT, this);
 
 		if (startTime > 0l) {
 			textStartY = (int) Math.max(-20000, (HEIGHT - (System.currentTimeMillis() - startTime) / TIME_SPEED));
@@ -122,8 +118,9 @@ public class SpecialLetter extends DefaultFrame {
 		// @ 글씨 로딩
 		for (int i = 0; i < texts.size(); i++) {
 			String text = texts.get(i);
-			int textWidth = g.getFontMetrics(font).stringWidth(text) / 2;
+			int textWidth = g.getFontMetrics(font).stringWidth(text);
 			int positionX = (WIDTH - textWidth) / 2;
+			g.setFont(font);
 			g.drawString(texts.get(i), positionX, font.getSize() * i + textStartY);
 		}
 	}

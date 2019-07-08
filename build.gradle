@@ -134,6 +134,10 @@ dependencies {
 	
 	// ActiveMQ - https://mvnrepository.com/artifact/org.apache.activemq/activemq-all
 	implementation group: 'org.apache.activemq', name: 'activemq-all', version: '5.11.1'
+	
+	// https://mvnrepository.com/artifact/javazoom/jlayer
+	implementation group: 'javazoom', name: 'jlayer', version: '1.0.1'
+	
 }
 
 // 하위 프로젝트 통합 관리 [ setting.gradle 참고 ] 

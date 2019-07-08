@@ -1,6 +1,6 @@
 package study.basic;
 
-import practice.sohee.basic.Calculator;
+import util.Calculator;
 
 /**
  * # 클래스란? 
@@ -55,7 +55,7 @@ public class ClassStudy {
 		new ClassStudy();
 	}
 
-	// @ practice.sohee.basic 패키지에 있는 Calculator 를 객체 생성하여 사용해보자!
+	// @ util 패키지에 있는 Calculator 를 객체 생성하여 사용해보자!
 	Calculator calculator = new Calculator();
 
 	public ClassStudy() {
@@ -64,23 +64,23 @@ public class ClassStudy {
 		int num2 = 25;
 
 		// @ 더하기
-		int plus = calculator.plus(num1, num2);
+		int plus = calculator.calculate(num1, num2, "+");
 		System.out.println("더하기 : " + plus);
 
 		// @ 빼기
-		int minus = calculator.minus(num1, num2);
+		int minus = calculator.calculate(num1, num2, "-");
 		System.out.println("빼기 : " + minus);
-		
+
 		/*
 		 *  더하기 빼기의 경우 이해하기 쉽도록 결과값을 변수에 따로 담았지만 결과값이 한번씩만 사용되고 있으므로 
 		 *  곱하기, 나누기는 직접 사용!
 		 */
-		
+
 		// @ 곱하기 
-		System.out.println("곱하기 : " + calculator.multiplication(num1, num2));
+		System.out.println("곱하기 : " + calculator.calculate(num1, num2, "*"));
 
 		// @ 나누기
-		System.out.println("나누기 : " + calculator.division(num1, num2));
+		System.out.println("나누기 : " + calculator.calculate(num1, num2, "/"));
 	}
 
 }

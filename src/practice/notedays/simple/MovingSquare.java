@@ -1,4 +1,4 @@
-package examples;
+package practice.notedays.simple;
 
 import java.awt.Color;
 import java.awt.Graphics;
