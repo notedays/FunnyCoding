@@ -1,0 +1,171 @@
+buildscript {
+	ext { // 변수 설정
+		gradleVersion = '5.5'
+		kotlinVersion = '1.3.21'
+		javaVersion = '1.8'
+	}
+	
+	repositories {
+		mavenCentral()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+    
+	dependencies {
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+		classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
+		
+		// Runnable Jar 생성 플러그인
+		classpath "com.github.jengelman.gradle.plugins:shadow:5.1.0"
+	}
+}
+
+group 'mafia-server'
+version '1.0-SNAPSHOT'
+
+// 전체 프로젝트 공통 속성
+allprojects {
+	apply plugin: 'kotlin'
+	apply plugin: 'java'
+	apply plugin: 'eclipse'
+	apply plugin: 'com.github.johnrengelman.shadow' 
+	
+	repositories {
+		google()
+	    mavenCentral()
+	}
+	
+	configurations {
+		ecj
+	}
+	
+	dependencies {
+		// Eclipse Compiler
+		ecj 'org.eclipse.jdt.core.compiler:ecj:4.4.2'
+	
+		// Kotlin 
+		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")   
+		implementation("org.jetbrains.kotlin:kotlin-reflect")
+		testImplementation "org.junit.jupiter:junit-jupiter-api:5.0.1"
+		testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+	}
+	
+	// Eclipse Output Forlder
+	eclipse {
+		classpath {
+			downloadSources = true
+			defaultOutputDir = file("${buildDir}/classes")
+			containers 'org.jetbrains.kotlin.core.KOTLIN_CONTAINER'
+		}
+		jdt {
+			sourceCompatibility = 1.8
+			targetCompatibility = 1.8
+		}
+	}
+	
+	// Java 컴파일 설정
+	[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+	compileJava {
+		options.fork = true
+		options.forkOptions.with {
+			executable = 'java'
+			jvmArgs = ['-classpath', project.configurations.ecj.asPath, 'org.eclipse.jdt.internal.compiler.batch.Main', '-nowarn']
+		} // eclipse의 컴파일러로 컴파일
+	}
+	
+	// Kotlin 컴파일 설정	
+	[compileKotlin, compileTestKotlin]*.kotlinOptions {
+		freeCompilerArgs = ["-Xjsr305=strict"]
+		jvmTarget = "$javaVersion"
+	}
+}
+
+
+// 루트 프로젝트 전용 설정
+sourceSets {
+	main.kotlin {
+		srcDirs = ['src']
+	}
+	main.java {
+		srcDirs = ['src']
+	}
+}
+
+
+// 라이브러리 관리
+dependencies {
+	/*
+	// 하위 프로젝트 참조  [settings.gradle 참고]
+	implementation project(path: ':sub_project_a')
+	implementation project(path: ':sub_project_b')
+	*/
+
+	// Simple Logging Facade for Java
+	implementation 'org.slf4j:slf4j-api:1.7.18'
+	
+	// Netty All
+	implementation group: 'io.netty', name: 'netty-all', version: '4.1.4.Final'
+	
+	// JSON - https://mvnrepository.com/artifact/org.json/json
+	implementation group: 'org.json', name: 'json', version: '20180813'
+	
+	// MySQL
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.36'
+	
+	// Apache Commons - https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.3.2'
+
+	// Common Pool - https://mvnrepository.com/artifact/commons-pool/commons-pool
+	implementation group: 'commons-pool', name: 'commons-pool', version: '1.6'
+	
+	// DBCP
+	implementation group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+	
+	// GCM Server
+	implementation group: 'com.ganyo', name: 'gcm-server', version: '1.0.2'
+	
+	// Javapns - https://mvnrepository.com/artifact/com.github.fernandospr/javapns-jdk16
+	implementation group: 'com.github.fernandospr', name: 'javapns-jdk16', version: '2.4.0'
+	
+	// JavaMail - https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+	implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
+	implementation group: 'javax.mail', name: 'javax.mail-api', version: '1.6.2'
+	
+	// ActiveMQ - https://mvnrepository.com/artifact/org.apache.activemq/activemq-all
+	implementation group: 'org.apache.activemq', name: 'activemq-all', version: '5.11.1'
+}
+
+// 하위 프로젝트 통합 관리 [ setting.gradle 참고 ] 
+subprojects {
+	
+}
+
+
+/*
+// 하위 프로젝트의 개별 관리
+project(':sub_project_a') { 
+	dependencies {
+		implementation project(':sub_project_b')
+	}
+}
+*/
+
+/*
+// # Jar 파일 추출 설정
+jar {
+	manifest {
+		attributes 'Main-Class': '*** main()가 있는 클래스의 full-name ***'
+	}
+	from files(sourceSets.main.output.classesDirs)
+	from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }{
+		exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+	}
+}
+*/
+
+wrapper { 
+	gradleVersion = "$gradleVersion" 
+}

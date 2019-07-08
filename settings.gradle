@@ -1,0 +1,13 @@
+/*
+	# Gradle - 멀티 프로젝트 관리 방법
+	
+	// 루트 프로젝트 명 명시!
+	rootProject.name = 'funny_coding' 
+
+	// 하위 프로젝트 include 하기
+	include 'sub_project_a', 'sub_project_b' ...  
+	
+	// 하위 프로젝트의 위치 설정
+	project (":sub_project_a").projectDir = new File("../sub_project_a")
+	project (":sub_project_b").projectDir = new File("../sub_project_b")
+*/
