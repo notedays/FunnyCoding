@@ -2,16 +2,20 @@ package practice.game
 
 import java.util.Arrays
 import java.util.Random
+import util.ConsoleUtil
 
 fun main(args: Array<String>) {
 	BaseBall()
 }
 
 class BaseBall {
+	
+	val console = ConsoleUtil.getInstance()
+	
 	init {
 		println("_______BaseBall______")
 		do {
-			var numberLength = Console.inputNo("문제 수 입력 : ")
+			var numberLength = console.inputNo("문제 수 입력 : ")
 			var numberArray: Array<Int?> = arrayOfNulls(numberLength)
 			var random: Random = Random()
 			for (i in 0..numberLength - 1) {
@@ -24,7 +28,7 @@ class BaseBall {
 				var ball = 0
 
 				println("\n== [${++count}_회전] ==")
-				var answer = Console.inputText("${numberLength} 자리 숫자 입력 : ")
+				var answer = console.inputText("${numberLength} 자리 숫자 입력 : ")
 				if (answer.length != numberLength) {
 					continue;
 				}
@@ -46,7 +50,7 @@ class BaseBall {
 				}
 			} while (true)
 
-		} while (Console.inputText("다시 하시겠습니까? Y / N").toUpperCase() == "Y")
+		} while (console.inputText("다시 하시겠습니까? Y / N").toUpperCase() == "Y")
 		println("게임을 종료합니다.")
 	}
 }

@@ -5,7 +5,13 @@ import java.util.Random
 import java.util.Collections
 
 fun main(args: Array<String>) {
-	LottoMaker()
+	val text =
+		"""
+안녕하세요
+반갑습니다 저는 와탕탕 입니다.
+오늘부터 코딩을 시작합니다.
+"""
+	TimePrinter(300, text).start()
 }
 
 class LottoMaker {
@@ -43,7 +49,7 @@ class RandomMatching(name: String) {
 	}
 }
 
-class SortList() {
+class SortList {
 	var list: List<String> = arrayListOf("A", "B", "C", "D", "E", "F", "G", "AA")
 
 	init {
@@ -53,3 +59,13 @@ class SortList() {
 		println()
 	}
 }
+
+class TimePrinter(val timeGap: Long, val text: String) : Thread({
+	for (char in text) {
+		print(char)
+		if (!char.isWhitespace()) {
+			Thread.sleep(timeGap)
+		}
+	}
+	println()
+})
