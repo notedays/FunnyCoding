@@ -39,30 +39,27 @@ i) 특정 변환된 데이터 반환 함수
 
 class Day4 {
 
-	// @ 예제를 위한 임시 클래스들
 	data class Person(var name: String? = null, var age: Int? = null) 
-
 	init {
-		// @ apply
+		// @ Example - apply
 		Person().apply {
 			age = 28
 			name = "요코야마"
 		}.let { println("${it.name} 씨의 나이는 ${it.age}세 입니다.") }
 		println()
 		
-		// @ also
+		// @ Example - also
 		Person("카나", null).also {
 			it.name?.let { println("이름 : ${it}") }
 			it.age?.let { println("나이 : ${it}") }
 		}
 		println()
 
-		// @ with
+		// @ Example - with
 		with(Person("카나", 30)) {
 			print("${name}는 한국 나이로 ${age}살 입니다.")
 		}
 		println()
-		
 	}
 
 }

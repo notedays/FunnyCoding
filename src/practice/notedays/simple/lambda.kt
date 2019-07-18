@@ -3,29 +3,11 @@ package practice.lambda
 import java.util.Arrays
 import java.util.Random
 import java.util.Collections
+import util.Music
+import java.util.Scanner
 
 fun main(args: Array<String>) {
-	val text =
-		"""
-안녕하세요
-반갑습니다 저는 와탕탕 입니다.
-오늘부터 코딩을 시작합니다.
-"""
-	TimePrinter(300, text).start()
-}
-
-class LottoMaker {
-	init {
-		println("____Lotto____")
-		var numSet: MutableSet<Int> = mutableSetOf()
-		var random = Random()
-		while (numSet.size == 6) {
-			numSet.add(random.nextInt(46))
-		}
-		val numList: MutableList<Int> = numSet.toMutableList()
-		Collections.sort(numList)
-		println("Result :: ${Arrays.toString(numList.toIntArray())}")
-	}
+	
 }
 
 class Calculator(a: Int, b: Int, c: String) {
