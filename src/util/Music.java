@@ -18,7 +18,7 @@ public class Music extends Thread implements AutoCloseable {
 	public Music(String name, boolean isLoop) {
 		this(new File(DEFAULT_PATH + name), isLoop);
 	}
-	
+
 	public Music(File file, boolean isLoop) {
 		this.isLoop = isLoop;
 		this.file = file;
@@ -43,7 +43,7 @@ public class Music extends Thread implements AutoCloseable {
 	public int getTime() {
 		return player == null ? 0 : player.getPosition();
 	}
-	
+
 	/**
 	 * # 현재 재생중인 곡 & 실행중인 스레드 종료! <br>
 	 * - try with resources에 사용하기 위해 implements AutoCloseable 적용
@@ -51,7 +51,9 @@ public class Music extends Thread implements AutoCloseable {
 	@Override
 	public void close() {
 		isLoop = false;
-		player.close();
+		if (player != null) {
+			player.close();
+		}
 		this.interrupt();
 	}
 
@@ -93,7 +95,7 @@ public class Music extends Thread implements AutoCloseable {
 	public void setLoop(boolean isLoop) {
 		this.isLoop = isLoop;
 	}
-	
+
 	public boolean isPlaying() {
 		return player != null && (isLoop || player.getPosition() > 0);
 	}
