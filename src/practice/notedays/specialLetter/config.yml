@@ -1,11 +1,11 @@
 # 배경 이미지 
-bg_image: src/resources/images/letter_flower.jpg
+bg_image: src/resources/images/letter_love.jpg
 
 # 편지 텍스트
 letter_text: flower.letter
 
 # 배경 음악
-bg_music: src/resources/sounds/music/우연히봄_피아노.mp3
+bg_music: src/resources/sounds/music/RainbowBridge.mp3
 
 # 폰트 ( 이름 , 스타일, 사이즈 )
 font: 필기, 1, 30
