@@ -9,19 +9,15 @@ fun main(args: Array<String>) {
 }
 
 class BaseBall {
-	
+
 	val console = ConsoleUtil.getInstance()
-	
+	val random: Random = Random()
+
 	init {
 		println("_______BaseBall______")
 		do {
 			var numberLength = console.inputNo("문제 수 입력 : ")
-			var numberArray: Array<Int?> = arrayOfNulls(numberLength)
-			var random: Random = Random()
-			for (i in 0..numberLength - 1) {
-				numberArray[i] = random.nextInt(10)
-			}
-
+			var numberArray: Array<Int> = Array(numberLength, { random.nextInt(10) })
 			var count = 0
 			do {
 				var strike = 0
