@@ -20,6 +20,7 @@ fun main(args: Array<String>) {
 	}
 	center.changeWeather("흐림")
 	center.changeWeather("비")
+	center.changeWeather("비")
 	center.changeWeather("맑음")
 }
 
@@ -29,8 +30,10 @@ class WeatherCenter : Observable() {
 	private var weather = "맑음"
 
 	public fun changeWeather(weather: String) {
+		if (weather != this.weather) {
+			setChanged()
+		}
 		this.weather = weather
-		setChanged()
 		notifyObservers(weather)
 	}
 }

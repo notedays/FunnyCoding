@@ -8,8 +8,9 @@
 	<!-- 자바의 동기화 락(모니터) 관련 문서 -->
 	<uri>http://happinessoncode.com/2017/10/04/java-intrinsic-lock/</uri>
 
-	<!-- 자바 디자인 패턴 -->
-	<uri>http://sdw8001.tistory.com/122</uri>
+	<!-- 디자인 패턴 -->
+	<uri>http://sdw8001.tistory.com/122</uri> <!-- 자바 -->
+	<uri>https://gmlwjd9405.github.io/2018/07/06/strategy-pattern.html</uri> <!-- C# -->
 
 	<!-- Kotlin 기본 -->
 	<uri>https://www.acmicpc.net/blog/view/71</uri>

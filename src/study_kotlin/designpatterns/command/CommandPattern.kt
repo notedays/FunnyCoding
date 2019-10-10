@@ -5,20 +5,22 @@ fun main(args: Array<String>) {
 	val remoCon = RemoteController()
 	remoCon.addDevice(SamsungTV())
 	remoCon.addDevice(LGHomeKeeper())
+	remoCon.addDevice(
+		CustomDevice(
+			{ println("커스텀 장치 ON") },
+			{ println("커스텀 장치 OFF") },
+			{ println("$it 버튼 호출") })
+	)
 
-	// 첫번째 디바이스 버튼 누르기
-	remoCon.onButtonPressed(0, "TURN_ON")
-	remoCon.onButtonPressed(0, "WORK")
-	remoCon.onButtonPressed(0, "TURN_OFF")
+	for (index in 0 until remoCon.deviceList.size) {
+		remoCon.onButtonPressed(index, "TURN_ON")
+		remoCon.onButtonPressed(index, "WORK")
+		remoCon.onButtonPressed(index, "TURN_OFF")
+	}
 
-	// 두번째 디바이스 버튼 누르기
-	remoCon.onButtonPressed(1, "TURN_ON")
-	remoCon.onButtonPressed(1, "WORK")
-	remoCon.onButtonPressed(1, "TURN_OFF")
 }
 
 interface RemoteControllable {
-	fun getName(): String
 	fun turnOn();
 	fun turnOff();
 	fun work(button: String);
@@ -27,7 +29,7 @@ interface RemoteControllable {
 // 장비들을 관리할 리모컨 클래스
 class RemoteController {
 	// 디바이스 리스트
-	private val deviceList = mutableListOf<RemoteControllable>();
+	val deviceList = mutableListOf<RemoteControllable>();
 
 	fun addDevice(device: RemoteControllable) = deviceList.add(device)
 	fun removeDevice(device: RemoteControllable) = deviceList.remove(device)
@@ -43,21 +45,29 @@ class RemoteController {
 }
 
 class SamsungTV : RemoteControllable {
-	override fun getName(): String = "삼성 TV"
+	override fun turnOn() = println("삼성 TV가 켜졌습니다.")
 
-	override fun turnOn() = println("${getName()}가 켜졌습니다.")
-
-	override fun turnOff() = println("${getName()}가 꺼졌습니다.")
+	override fun turnOff() = println("삼성 TV가 꺼졌습니다.")
 
 	override fun work(button: String) = println("Samsung TV's Monitoring :: $button")
 }
 
 class LGHomeKeeper : RemoteControllable {
-	override fun getName(): String = "LG 홈키퍼"
+	override fun turnOn() = println("LG 홈키퍼 STATE [ ON ]")
 
-	override fun turnOn() = println("${getName()} STATE [ ON ]")
-
-	override fun turnOff() = println("${getName()} STATE [ OFF ]")
+	override fun turnOff() = println("LG 홈키퍼 STATE [ OFF ]")
 
 	override fun work(button: String) = println("HOME KEEPER IS WORKING....")
+}
+
+class CustomDevice(
+	val onAction: () -> Unit,
+	val offAction: () -> Unit,
+	val work: (String) -> Unit
+) : RemoteControllable {
+	override fun turnOn() = onAction.invoke()
+
+	override fun turnOff() = offAction.invoke()
+
+	override fun work(button: String) = work.invoke(button)
 }

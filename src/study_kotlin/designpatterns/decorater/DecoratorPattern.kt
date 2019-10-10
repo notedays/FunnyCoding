@@ -12,13 +12,13 @@ package designpatterns.decorater
 fun main(args: Array<String>) {
 	// @ 기본 사이언 구현의 손오반
 	val gohan: Saiyan = Gohan()
-	println(gohan)
+	println(Super(Super(gohan)))
 
 	// @ Super 로 초사이언 단계를 두번 올린 손오공
 	var goku: Saiyan = Goku()
 	goku = Super(goku) 
-	goku = Exhaust(goku)
 	goku = Super(goku)
+	goku = Exhaust(goku)
 	println(goku)
 }
 
