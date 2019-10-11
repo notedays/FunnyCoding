@@ -17,7 +17,9 @@ fun main(args: Array<String>) {
 	// @ Super 로 초사이언 단계를 두번 올린 손오공
 	var goku: Saiyan = Goku()
 	goku = Super(goku) 
+	println(goku)
 	goku = Super(goku)
+	println(goku)
 	goku = Exhaust(goku)
 	println(goku)
 }
