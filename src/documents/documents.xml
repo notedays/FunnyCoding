@@ -13,7 +13,8 @@
 	<uri>https://gmlwjd9405.github.io/2018/07/06/strategy-pattern.html</uri> <!-- C# -->
 
 	<!-- Kotlin 기본 -->
-	<uri>https://www.acmicpc.net/blog/view/71</uri>
+	<uri>https://www.acmicpc.net/blog/view/71</uri> 
+	<uri>https://thdev.tech/kotlin/2016/08/04/Kotlin-Null-Safety/</uri> <!-- NPE 방지 기법 모음 -->
 
 	<!-- MySql 파티셔닝 -->
 	<uri>https://12bme.tistory.com/48</uri>
