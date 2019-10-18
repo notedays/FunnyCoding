@@ -17,7 +17,6 @@ fun main(args: Array<String>) {
 		remoCon.onButtonPressed(index, "WORK")
 		remoCon.onButtonPressed(index, "TURN_OFF")
 	}
-
 }
 
 interface RemoteControllable {

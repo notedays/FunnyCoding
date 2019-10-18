@@ -1,10 +1,9 @@
 package study_kotlin.designpatterns.composite
 
-import java.util.LinkedList
-import java.util.Queue
-import java.lang.NullPointerException
+import java.util.Stack
 
 fun main(args: Array<String>) {
+
 	val pancakeHouseMenu = Menu("팬케이크 하우스 메뉴", "아침 메뉴").apply {
 		add(MenuItem("K&B 팬케이크 세트", "스크램블드 에그와 토스트가 곁들여진 팬케이크", true, 2.99))
 		add(MenuItem("레귤러 팬케이크 세트", "달걀 후라이와 소시지가 곁들여진 팬케이크", false, 2.99))
@@ -39,6 +38,7 @@ fun main(args: Array<String>) {
 
 	Waitress(allMenus).let {
 		it.printMenu()
+		it.printVegetarianMenu()
 	}
 }
 
@@ -47,9 +47,12 @@ fun main(args: Array<String>) {
  
  i) 객체들을 트리 구조로 구성하여 부분과 전체를 나타내는 계층구조로 만들 수 있음.
  i) 클라이언트에서 개별 객체와 다른 객체들로 구성된 복합 객체를 똑같은 방법으로 다룰 수 있음.
+ 
+ -- 아래의 예시에서는 각각의 메뉴를 나타내는 MenuItem과 메뉴 목록을 나타내는 Menu를 하나의 복합 객체인 MenuComponent로 취급하여 다룸
  */
 
-abstract class MenuComponent {
+// 트리 구조를 위한 기본 메소드들과 기본 적으로 제공될 메소드 (출력 & 채식주의자 판별)
+abstract class MenuComponent : Iterable<MenuComponent> {
 	open fun add(menuComponent: MenuComponent): Boolean {
 		throw UnsupportedOperationException()
 	}
@@ -62,37 +65,48 @@ abstract class MenuComponent {
 		throw UnsupportedOperationException()
 	}
 
+	open fun vegetarian(): Boolean = false
+
 	open fun print() {
 		throw UnsupportedOperationException()
 	}
 }
 
+// 개별 메뉴 정보를 담는 클래스 
 data class MenuItem(
 	val name: String,
 	val description: String,
 	val vegetarian: Boolean,
 	val price: Double
 ) : MenuComponent() {
+	override fun iterator() = EmptyIterator()
 	override fun print() {
 		println("$name${if (vegetarian) "(v)" else ""}, $price$ -- $description")
 	}
+
+	override fun vegetarian() = vegetarian
 }
 
+// MenuItem들을 담을 수 있는 메뉴 목록 클래스
 class Menu(
 	val name: String,
 	val description: String,
 	val menuComponents: MutableList<MenuComponent> = arrayListOf()
 ) : MenuComponent() {
-
+	override fun iterator(): Iterator<MenuComponent> = CompositeIterator(menuComponents.iterator())
 	override fun add(menuComponent: MenuComponent) = menuComponents.add(menuComponent)
 	override fun remove(menuComponent: MenuComponent) = menuComponents.remove(menuComponent)
 	override fun getChild(i: Int) = menuComponents[i]
 	override fun print() {
-		println("\n$name [$description]\n--------------")
+		println("\n$name [$description]\n----------------------------")
 		menuComponents.forEach { it.print() }
 	}
 }
 
 class Waitress(val allMenus: MenuComponent) {
 	fun printMenu() = allMenus.print()
+	fun printVegetarianMenu() {
+		println("\n채식주의자 메뉴\n----------------------------")
+		allMenus.filter { it.vegetarian() }.forEach { it.print() }
+	}
 }
