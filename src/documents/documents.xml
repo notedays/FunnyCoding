@@ -18,4 +18,7 @@
 
 	<!-- MySql 파티셔닝 -->
 	<uri>https://12bme.tistory.com/48</uri>
+	
+	<!-- Java8 Stream API -->
+	<uri>https://futurecreator.github.io/2018/08/26/java-8-streams/</uri>
 </document>
