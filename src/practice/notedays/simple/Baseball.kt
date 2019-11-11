@@ -47,7 +47,7 @@ class BaseBall {
 				}
 
 				if (strike == numberLength) {
-					println("삼진 아웃!!!! ${Arrays.toString(numberArray)}")
+					println("삼진 아웃!!!! ${Arrays.toString(numbers.toIntArray())}")
 					break;
 				} else {
 					println("S : ${strike} / B : ${ball}")
