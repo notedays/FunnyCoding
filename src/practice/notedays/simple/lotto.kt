@@ -5,6 +5,7 @@ import java.util.Random
 import java.util.Collections
 import java.util.Arrays
 import util.RandomPicker
+import java.util.stream.Collectors
 
 fun main(args: Array<String>) {
 	MultipleLotto()
@@ -13,7 +14,7 @@ fun main(args: Array<String>) {
 
 abstract class LottoMaker {
 	init {
-		println("____${this::class.java.getSimpleName()}____")
+		println("____${this::class.java.simpleName}____")
 		print("횟수 입력 : ")
 		with(Scanner(System.`in`)) {
 			lotto(nextInt())
@@ -25,14 +26,14 @@ abstract class LottoMaker {
 
 	// 중복되지 않는 번호 6자리 뽑는 함수
 	fun makeNumberArray(): IntArray {
-		var numSet: MutableSet<Int> = mutableSetOf()
+		val numSet: MutableSet<Int> = mutableSetOf()
 		with(Random()) {
 			while (numSet.size < 6) {
 				numSet.add(nextInt(46))
 			}
 		}
 		val numList: MutableList<Int> = numSet.toMutableList()
-		Collections.sort(numList)
+		numList.sort()
 		return numList.toIntArray()
 	}
 }
@@ -41,7 +42,7 @@ abstract class LottoMaker {
 class SimpleLotto : LottoMaker() {
 	override fun lotto(loopCount: Int) {
 		for (i in 1..loopCount) {
-			println("$i 번째 :: ${Arrays.toString(makeNumberArray())}")
+			println("$i 번째 :: ${makeNumberArray().contentToString()}")
 		}
 	}
 }
@@ -53,26 +54,39 @@ class MultipleLotto : LottoMaker() {
 		// 10000번 우선 추출하여 Map에 각각의 출현 횟수 저장
 		val map: MutableMap<Int, Int> = mutableMapOf()
 		for (i in 1..100000) {
-			makeNumberArray().forEach { num -> map.put(num, (map.get(num) ?: 0) + 1) }
+			makeNumberArray().forEach { num -> map[num] = map.getOrDefault(num, 0) + 1 }
 		}
 
 		// RandomPicker에 숫자별 출현확률 (출현횟수 / 전체출현횟수 x 100)을 저장 
-		val picker = RandomPicker<Int>(0)
+		val picker = RandomPicker(0)
 		val sum = map.values.sum()
 		for (entry in map.entries) {
 			val rate = entry.value.toFloat().div(sum).times(100.0f)
 			picker.add(entry.key, rate)
 		}
 
+		map.clear()
+
 		// RandomPicker에서 다시 번호 6개 뽑기 - loopCount만큼 반복
+		var countMap = mutableMapOf<Int, Int>()
 		for (i in 1..loopCount) {
-			var numSet: MutableSet<Int> = mutableSetOf()
+			val numSet: MutableSet<Int> = mutableSetOf()
 			while (numSet.size < 6) {
-				numSet.add(picker.pick())
+				picker.pick().apply {
+					if (this == 0) {
+						return
+					}
+					numSet.add(this)
+				}
 			}
 			val numList: MutableList<Int> = numSet.toMutableList()
-			Collections.sort(numList)
-			println("$i 번째 :: ${Arrays.toString(numList.toIntArray())}")
+			numList.sort()
+			println("$i 번째 :: ${numList.toIntArray().contentToString()}")
+
+			numList.forEach { num -> map[num] = map.getOrDefault(num, 0) + 1 }
 		}
+
+		val compactNums = map.entries.sortedBy { it.value }.reversed().subList(0, 5)
+		println("최종 압축 번호 :: ${compactNums.map { it.key }.sorted().toIntArray().contentToString()}")
 	}
 }

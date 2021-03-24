@@ -1,5 +1,6 @@
-package practice.notedays.games
+package practice.notedays.games.example
 
+import practice.notedays.games.GameCanvas
 import java.awt.Color
 import java.awt.Graphics
 import java.util.Random

@@ -1,10 +1,4 @@
-package practice.lambda
-
-import java.util.Arrays
-import java.util.Random
-import java.util.Collections
-import util.Music
-import java.util.Scanner
+package practice.notedays.simple
 
 fun main(args: Array<String>) {
 	

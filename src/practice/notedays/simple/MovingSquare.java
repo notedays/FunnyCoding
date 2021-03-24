@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import study.graphics.GraphicBasic;
+import study.java.graphics.GraphicBasic;
 
 public class MovingSquare extends GraphicBasic implements KeyListener {
 	
