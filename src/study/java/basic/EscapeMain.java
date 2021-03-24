@@ -9,6 +9,6 @@ public class EscapeMain {
 	
 	public EscapeMain() {
 		// # 여기에 main 메소드에서 할 작업을 기술한다.
-		System.out.println("Hello Sohee");
+		System.out.println("Hello Java");
 	}
 }
